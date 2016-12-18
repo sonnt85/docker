@@ -15,7 +15,7 @@ FROM buildpack-deps:jessie-scm
 RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
 		apt-utils \
-		apt-get -y install lib32z1 lib32ncurses5 \
+		install lib32z1 lib32ncurses5 \
 		bzip2 \
 		unzip \
 		xz-utils \
