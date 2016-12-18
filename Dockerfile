@@ -87,5 +87,5 @@ USER sonnt
 ENV HOME /home/sonnt
 WORKDIR /home/sonnt/workspace
 
-CMD sleep 10; nohub /opt/eclipse/eclipse &>/dev/null&; while((1)); do sleep 10; done
+CMD /opt/eclipse/eclipse
 
