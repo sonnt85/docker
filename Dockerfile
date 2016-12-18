@@ -48,7 +48,7 @@ ENV JAVA_DEBIAN_VERSION 8u111-b14-2~bpo8+1
 # and https://github.com/docker-library/java/issues/19#issuecomment-70546872
 ENV CA_CERTIFICATES_JAVA_VERSION 20140324
 #default DISPLAY
-ENV DISLPAY :0
+ENV DISPLAY :0
 
 RUN set -x \
 	&& apt-get update \
