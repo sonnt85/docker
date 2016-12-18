@@ -12,16 +12,19 @@ FROM buildpack-deps:jessie-scm
 #  1. Oracle.  Licensing prevents us from redistributing the official JDK.
 #  2. Compiling OpenJDK also requires the JDK to be installed, and it gets
 #       really hairy.
+RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
+		apt-utils \
+		apt-get -y install lib32z1 lib32ncurses5 \
 		bzip2 \
 		unzip \
 		xz-utils \
                 sudo \
 		arduino \
 		git \
+		gcc-arm-none-eabi \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
@@ -64,6 +67,11 @@ RUN [ -f /opt/eclipse/eclipse ] || \
       chmod 555 opt/eclipse/eclipse && \
       rm /tmp/eclipsecpp64helios.tar.gz; \
     }
+ENV GA_VERSION  4_9-2015q3-20150921 
+#5_4-2016q3-20160926
+RUN wget https://launchpadlibrarian.net/287101520/gcc-arm-none-eabi-$GA_VERSION-linux.tar.bz2 -O /tmp/gcc-arm-none-eabi-$GA_VERSION-linux.tar.bz2\
+    && tar xjf /tmp/gcc-arm-none-eabi-$GA_VERSION-linux.tar.bz2 -C /usr/local && \
+    rm /tmp/gcc-arm-none-eabi-$GA_VERSION-linux.tar.bz2
 #share X11 from host
 VOLUME ["/tmp/.X11-unix"]
 
