@@ -5,7 +5,7 @@
 #
 
 FROM eclipse
-MAINTAINER thanhson.rf@gmail.com
+MAINTAINER sonnt
 
 # A few problems with compiling Java from source:
 #  1. Oracle.  Licensing prevents us from redistributing the official JDK.
@@ -17,7 +17,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		unzip \
 		xz-utils \
                 sudo \
-		apt install arduino \
+		arduino \
+		git \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
