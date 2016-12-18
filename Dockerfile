@@ -83,6 +83,9 @@ RUN mkdir -p /home/sonnt/workspace && \
     echo "sonnt ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sonnt && \
     chmod 0440 /etc/sudoers.d/sonnt && \
     chown sonnt:sonnt -R /home/sonnt
+#for arduino use serial
+RUN usermod  -aG dialout sonnt
+
 USER sonnt
 ENV HOME /home/sonnt
 WORKDIR /home/sonnt/workspace
