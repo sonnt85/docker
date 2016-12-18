@@ -4,7 +4,7 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-FROM buildpack-deps:jessie-scm
+FROM sonnt:eclipse
 
 # A few problems with compiling Java from source:
 #  1. Oracle.  Licensing prevents us from redistributing the official JDK.
@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
 		xz-utils \
-        sudo \
+                sudo \
+		apt install arduino \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
@@ -59,8 +60,6 @@ RUN wget http://archive.eclipse.org/technology/epp/downloads/release/helios/SR2/
    tar -xf /tmp/eclipsecpp64helios.tar.gz -C /opt && \
    chmod 555 opt/eclipse/eclipse && \
    rm /tmp/eclipsecpp64helios.tar.gz
-#install arduino
-RUN apt install arduino
 #share X11 from host
 VOLUME ["/tmp/.X11-unix"]
 
