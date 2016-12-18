@@ -55,11 +55,13 @@ RUN set -x \
 
 # see CA_CERTIFICATES_JAVA_VERSION notes above
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
-RUN wget http://archive.eclipse.org/technology/epp/downloads/release/helios/SR2/eclipse-cpp-helios-SR2-linux-gtk-x86_64.tar.gz\
-   -O /tmp/eclipsecpp64helios.tar.gz &&\
-   tar -xf /tmp/eclipsecpp64helios.tar.gz -C /opt && \
-   chmod 555 opt/eclipse/eclipse && \
-   rm /tmp/eclipsecpp64helios.tar.gz
+RUN [ -f /opt/eclipse/eclipse ] || \
+   { wget http://archive.eclipse.org/technology/epp/downloads/release/helios/SR2/eclipse-cpp-helios-SR2-linux-gtk-x86_64.tar.gz\
+      -O /tmp/eclipsecpp64helios.tar.gz &&\
+      tar -xf /tmp/eclipsecpp64helios.tar.gz -C /opt && \
+      chmod 555 opt/eclipse/eclipse && \
+      rm /tmp/eclipsecpp64helios.tar.gz
+   }
 #share X11 from host
 VOLUME ["/tmp/.X11-unix"]
 
