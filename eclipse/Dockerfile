@@ -55,11 +55,22 @@ RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 RUN wget http://archive.eclipse.org/technology/epp/downloads/release/helios/SR2/eclipse-cpp-helios-SR2-linux-gtk-x86_64.tar.gz\
    -O /tmp/eclipsecpp64helios.tar.gz &&\
    tar -xf /tmp/eclipsecpp64helios.tar.gz -C /opt && \
+   chmod 555 opt/eclipse/eclipse && \
    rm /tmp/eclipsecpp64helios.tar.gz
-#create user with sudo perm
-RUN adduser --disabled-password --gecos sonnt sonnt
-RUN echo "sonnt	ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/sonnt
-
 #share X11 from host
 VOLUME ["/tmp/.X11-unix"]
+
+#create user with sudo perm
+#RUN adduser --disabled-password --gecos sonnt sonnt
+RUN mkdir -p /home/sonnt/workspace && \
+    echo "sonnt:x:1000:1000:sonnt,,,:/home/sonnt:/bin/bash" >> /etc/passwd && \
+    echo "sonnt:x:1000:" >> /etc/group && \
+    echo "sonnt ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sonnt && \
+    chmod 0440 /etc/sudoers.d/sonnt && \
+    chown sonnt:sonnt -R /home/sonnt
+USER sonnt
+ENV HOME /home/sonnt
+WORKDIR /home/sonnt/workspace
+
+CMD nohub /opt/eclipse/eclipse &>/dev/null
 
