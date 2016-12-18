@@ -4,7 +4,7 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-FROM sonnt:eclipse
+FROM eclipse
 MAINTAINER thanhson.rf@gmail.com
 
 # A few problems with compiling Java from source:
