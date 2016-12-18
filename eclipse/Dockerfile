@@ -12,7 +12,7 @@ FROM buildpack-deps:jessie-scm
 #  1. Oracle.  Licensing prevents us from redistributing the official JDK.
 #  2. Compiling OpenJDK also requires the JDK to be installed, and it gets
 #       really hairy.
-RUN apt-get -y update && sudo apt-get install -y --no-install-recommends \
+RUN apt-get -y update && apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
 		xz-utils \
