@@ -62,7 +62,7 @@ RUN [ -f /opt/eclipse/eclipse ] || \
       -O /tmp/eclipsecpp64helios.tar.gz &&\
       tar -xf /tmp/eclipsecpp64helios.tar.gz -C /opt && \
       chmod 555 opt/eclipse/eclipse && \
-      rm /tmp/eclipsecpp64helios.tar.gz \
+      rm /tmp/eclipsecpp64helios.tar.gz; \
     }
 #share X11 from host
 VOLUME ["/tmp/.X11-unix"]
