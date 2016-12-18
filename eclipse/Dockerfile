@@ -3,15 +3,16 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
+FROM buildpack-deps:jessie-scm
 
-FROM sonnt/eclipse
-MAINTAINER sonnt
+#FROM sonnt/eclipse
+#MAINTAINER sonnt
 
 # A few problems with compiling Java from source:
 #  1. Oracle.  Licensing prevents us from redistributing the official JDK.
 #  2. Compiling OpenJDK also requires the JDK to be installed, and it gets
 #       really hairy.
-RUN sudo su; apt-get -y update && sudo apt-get install -y --no-install-recommends \
+RUN apt-get -y update && sudo apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
 		xz-utils \
@@ -20,7 +21,7 @@ RUN sudo su; apt-get -y update && sudo apt-get install -y --no-install-recommend
 		git \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN sudo su; echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
+RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
@@ -57,12 +58,12 @@ RUN set -x \
 # see CA_CERTIFICATES_JAVA_VERSION notes above
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 RUN [ -f /opt/eclipse/eclipse ] || \
-   { wget http://archive.eclipse.org/technology/epp/downloads/release/helios/SR2/eclipse-cpp-helios-SR2-linux-gtk-x86_64.tar.gz\
+    { wget http://archive.eclipse.org/technology/epp/downloads/release/helios/SR2/eclipse-cpp-helios-SR2-linux-gtk-x86_64.tar.gz\
       -O /tmp/eclipsecpp64helios.tar.gz &&\
       tar -xf /tmp/eclipsecpp64helios.tar.gz -C /opt && \
       chmod 555 opt/eclipse/eclipse && \
       rm /tmp/eclipsecpp64helios.tar.gz \
-   }
+    }
 #share X11 from host
 VOLUME ["/tmp/.X11-unix"]
 
