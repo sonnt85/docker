@@ -11,8 +11,7 @@ MAINTAINER sonnt
 #  1. Oracle.  Licensing prevents us from redistributing the official JDK.
 #  2. Compiling OpenJDK also requires the JDK to be installed, and it gets
 #       really hairy.
-USER root
-RUN apt-get -y update && apt-get install -y --no-install-recommends \
+RUN sudo su; apt-get -y update && sudo apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
 		xz-utils \
@@ -21,14 +20,14 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
 		git \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
+RUN sudo su; echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
 # add a simple script that can auto-detect the appropriate JAVA_HOME value
 # based on whether the JDK or only the JRE is installed
-RUN { \
+RUN     { \
 		echo '#!/bin/sh'; \
 		echo 'set -e'; \
 		echo; \
