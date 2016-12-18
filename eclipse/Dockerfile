@@ -4,7 +4,7 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-FROM eclipse
+FROM sonnt/eclipse
 MAINTAINER sonnt
 
 # A few problems with compiling Java from source:
