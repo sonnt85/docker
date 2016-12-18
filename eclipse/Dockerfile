@@ -57,6 +57,8 @@ RUN wget http://archive.eclipse.org/technology/epp/downloads/release/helios/SR2/
    tar -xf /tmp/eclipsecpp64helios.tar.gz -C /opt && \
    chmod 555 opt/eclipse/eclipse && \
    rm /tmp/eclipsecpp64helios.tar.gz
+#install arduino
+RUN apt install arduino
 #share X11 from host
 VOLUME ["/tmp/.X11-unix"]
 
