@@ -22,8 +22,9 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
                 sudo \
 		arduino \
 		git \
-		gcc-arm-none-eabi \
-	&& rm -rf /var/lib/apt/lists/*
+		build-essential \
+		net-tools \
+		gcc-arm-none-eabi
 
 
 # Default to UTF-8 file.encoding
@@ -61,11 +62,11 @@ RUN set -x \
 # see CA_CERTIFICATES_JAVA_VERSION notes above
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 RUN [ -f /opt/eclipse/eclipse ] || \
-    { wget http://archive.eclipse.org/technology/epp/downloads/release/helios/SR2/eclipse-cpp-helios-SR2-linux-gtk-x86_64.tar.gz\
-      -O /tmp/eclipsecpp64helios.tar.gz &&\
-      tar -xf /tmp/eclipsecpp64helios.tar.gz -C /opt && \
+    { wget http://ftp.kaist.ac.kr/eclipse/technology/epp/downloads/release/neon/2/eclipse-cpp-neon-2-linux-gtk-x86_64.tar.gz\
+      -O /tmp/eclipsecpp64neon.tar.gz &&\
+      tar -xf /tmp/eclipsecpp64neon.tar.gz -C /opt && \
       chmod 555 opt/eclipse/eclipse && \
-      rm /tmp/eclipsecpp64helios.tar.gz; \
+      rm /tmp/eclipsecpp64neon.tar.gz; \
     }
 ENV GA_VERSION  5_4-2016q3-20160926
 #4_9-2015q3-20150921 
@@ -85,10 +86,11 @@ RUN mkdir -p /home/sonnt/workspace && \
     chown sonnt:sonnt -R /home/sonnt
 #for arduino use serial
 RUN usermod  -aG dialout sonnt
+RUN rm -rf /var/lib/apt/lists/*
 
 USER sonnt
 ENV HOME /home/sonnt
 WORKDIR /home/sonnt/workspace
-
+CMD echo "Eclipse (neon) path: /opt/eclipse/eclipse"
 CMD /opt/eclipse/eclipse
 
