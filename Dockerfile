@@ -25,6 +25,8 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
 		build-essential \
 		net-tools \
 		nano \
+		openssh-server \
+		meld \
 		gcc-arm-none-eabi
 
 
