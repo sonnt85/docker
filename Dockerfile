@@ -70,7 +70,8 @@ RUN [ -f /opt/eclipse/eclipse ] || \
       rm /tmp/eclipsecpp64neon.tar.gz; \
     }
 RUN sed -ire "~openFile~a-vm" /opt/eclipse/eclipse.ini;\
-    sed -ire "~-vm~a$JAVA_HOME/jre/bin/java" /opt/eclipse/eclipse.ini;
+    sed -ire "~-vm~a$JAVA_HOME/jre/bin/java" /opt/eclipse/eclipse.ini;\
+    chmod +x /opt/eclipse/eclipse;
 ENV GA_VERSION  5_4-2016q3-20160926
 #4_9-2015q3-20150921 
 RUN wget https://launchpadlibrarian.net/287101520/gcc-arm-none-eabi-$GA_VERSION-linux.tar.bz2 -O /tmp/gcc-arm-none-eabi-$GA_VERSION-linux.tar.bz2\
