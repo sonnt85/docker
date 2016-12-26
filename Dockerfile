@@ -32,7 +32,7 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
-ENV NO_AT_BRIDGE 1
+RUN echo "export NO_AT_BRIDGE=1" >> /etc/profile
 
 RUN echo  "GatewayPorts yes\n\
 X11Forwarding yes\n\
