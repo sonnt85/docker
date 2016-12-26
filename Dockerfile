@@ -32,6 +32,15 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
+ENV NO_AT_BRIDGE 1
+
+RUN echo -e "GatewayPorts yes\n\
+X11Forwarding yes\n\
+X11DisplayOffset 10\n\
+PrintMotd no\n\
+PrintLastLog yes\n\
+PermitRootLogin yes\n\
+TCPKeepAlive yes" >> /etc/ssh/sshd_config;
 
 # add a simple script that can auto-detect the appropriate JAVA_HOME value
 # based on whether the JDK or only the JRE is installed
