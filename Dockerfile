@@ -97,8 +97,8 @@ VOLUME ["/tmp/.X11-unix"]
 #RUN adduser --disabled-password --gecos sonnt sonnt
 RUN mkdir -p /home/sonnt/workspace && \
     mkdir -p /home/sonnt/.ssh && \
-    cp /etc/skel/.bashrc /home/sonnt/.bashrc \
-    cp /etc/skel/.profile /home/sonnt/.profile \
+    cp /etc/skel/.bashrc /home/sonnt/.bashrc &&\
+    cp /etc/skel/.profile /home/sonnt/.profile &&\
     echo "sonnt:x:1000:1000:sonnt,,,:/home/sonnt:/bin/bash" >> /etc/passwd && \
     echo "sonnt:x:1000:" >> /etc/group && \
     echo "sonnt ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sonnt && \
